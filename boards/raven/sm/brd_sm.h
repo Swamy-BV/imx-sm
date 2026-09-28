@@ -37,7 +37,7 @@
 
 /*==========================================================================*/
 /*!
- * @addtogroup BRD_SM_MX95EVK
+ * @addtogroup BRD_SM_RAVEN
  * @{
  *
  * @file
@@ -61,7 +61,7 @@
 /* Defines */
 
 /*! Board name string */
-#define BRD_SM_NAME  "i.MX95 EVK"
+#define BRD_SM_NAME  "Raven (FRDM bring-up)"
 
 /*! Board attributes */
 #define BRD_SM_ATTR  0x0
