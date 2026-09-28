@@ -30,7 +30,7 @@
 ##
 ## ###################################################################
 
-BOARD ?= raven
+BOARD ?= raven-frdm
 BRD_SM_API_DIR = $(ROOT_DIR)/sm/brd
 BOARDS_DIR = $(ROOT_DIR)/boards
 BOARD_DIR = $(BOARDS_DIR)/$(BOARD)

@@ -32,98 +32,69 @@
 ** ###################################################################
 */
 
-#ifndef BRD_SM_HANDLERS_H
-#define BRD_SM_HANDLERS_H
+#ifndef BRD_SM_H
+#define BRD_SM_H
 
 /*==========================================================================*/
 /*!
- * @addtogroup BRD_SM_RAVEN
+ * @addtogroup BRD_SM_RAVEN_FRDM
  * @{
  *
  * @file
  * @brief
  *
- * Header file containing the implementation of interrupt handlers for the
- * board.
+ * Header file containing the API for the SM abstraction of the board.
  */
 /*==========================================================================*/
 
 /* Includes */
 
 #include "sm.h"
-#include "dev_sm.h"
-#include "fsl_pcal6408a.h"
-#include "fsl_pf09.h"
-#include "fsl_pf53.h"
-#include "fsl_pca2131.h"
+#include "brd_sm_handlers.h"
+#include "brd_sm_control.h"
+#include "brd_sm_sensor.h"
+#include "brd_sm_voltage.h"
+#include "brd_sm_bbm.h"
+#include "board.h"
+#include "brd_sm_api.h"
 
 /* Defines */
 
-/*! Initial PCAL6408A interrupt mask */
-#define PCAL6408A_INITIAL_MASK  0xF7U
+/*! Board name string */
+#define BRD_SM_NAME  "Raven FRDM-IMX95 bring-up"
 
-/*! Number of board IRQs participating dynamic prioritization */
-#define BOARD_NUM_IRQ_PRIO_IDX                 1U
+/*! Board attributes */
+#define BRD_SM_ATTR  0x0
 
-/*! Dynamic IRQ priority table index for GPIO1 */
-#define BOARD_IRQ_PRIO_IDX_GPIO1_0             0U
+/*! Perf voltage drop */
+#define BOARD_PERF_VDROP  20000
+
+/*!
+ * @name Board redirection defines
+ * @{
+ */
+#define SM_SYSTEMRESET  BRD_SM_SystemReset       /*!< Reset */
+/** @} */
 
 /* Types */
 
 /* External variables */
 
-/*! Handle to access PCAL6408A */
-extern PCAL6408A_Type g_pcal6408aDev;
-
-/*! Handle to access PF09 */
-extern PF09_Type g_pf09Dev;
-
-/*! Handle to access PF5301 */
-extern PF53_Type g_pf5301Dev;
-
-/*! Handle to access PF5302 */
-extern PF53_Type g_pf5302Dev;
-
-/*! Handle to access PCA2131 */
-extern PCA2131_Type g_pca2131Dev;
-
-/*! Array of dynamic priority info for board IRQs */
-extern irq_prio_info_t g_brdIrqPrioInfo[BOARD_NUM_IRQ_PRIO_IDX];
-
-/*! Indicator if bus expander bit[6] is used for the PF2131 RTC */
-extern bool g_pca2131Used;
-
-/*! Fault flags from the PMICs */
-extern uint32_t g_pmicFaultFlags;
-
 /* Functions */
 
 /*!
- * Init serial devices.
+ * Reset the system.
+ *
+ * Redirect to just spin.
  *
  * @return Returns the status (::SM_ERR_SUCCESS = success).
- */
-int32_t BRD_SM_SerialDevicesInit(void);
-
-/*!
- * Enable/disable bus expander interrupts.
  *
- * @param[in]     val      Value to write
- * @param[in]     mask     Mask of bits to modify
- *
- * This function allows a caller to configure the bus expander.
- * interrupts.
- *
- * @return Returns the status (::SM_ERR_SUCCESS = success).
+ * Return errors (see @ref STATUS "SM error codes"):
+ * - ::SM_ERR_SUCCESS
  */
-int32_t BRD_SM_BusExpMaskSet(uint8_t val, uint8_t mask);
-
-/*!
- * GPIO 1 interrupt 0 handler.
- */
-void GPIO1_0_IRQHandler(void);
+int32_t BRD_SM_SystemReset(void);
 
 /** @} */
 
-#endif /* BRD_SM_HANDLERS_H */
+#endif /* BRD_SM_H */
 

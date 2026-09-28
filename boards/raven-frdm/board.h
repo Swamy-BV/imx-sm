@@ -12,7 +12,7 @@
 #include "dev_sm.h"
 
 /*!
- * @addtogroup BRD_SM_RAVEN
+ * @addtogroup BRD_SM_RAVEN_FRDM
  * @{
  *
  * @file
